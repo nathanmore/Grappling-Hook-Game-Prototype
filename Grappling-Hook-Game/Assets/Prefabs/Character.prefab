@@ -280,3 +280,6 @@ MonoBehaviour:
   xClamp: 85
   sensitivityX: 20
   sensitivityY: 0.1
+  debugHitPointTransform: {fileID: 0}
+  hookshotSpeed: 10
+  reachedHookshotPositionDistance: 1
