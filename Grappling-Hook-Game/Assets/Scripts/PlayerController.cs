@@ -3,32 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] Transform playerCamera;
-    [SerializeField] float xClamp = 85f;
-    [SerializeField] float sensitivityX = 15f;
-    [SerializeField] float sensitivityY = 0.2f;
-    [SerializeField] private Transform debugHitPointTransform;
-    [SerializeField] private float hookshotSpeed = 5f;
-    [SerializeField] private float reachedHookshotPositionDistance;
-    [SerializeField] private float gravityScale;
+    [SerializeField] private float sensitivity = 50f;
+    [SerializeField] private float yClamp = 60f;
 
-    private CharacterController characterController;
-    private float mouseX, mouseY;
-    private float xRotation = 0f;
+    private enum State { Normal, Escaped }
+
+    private float rotY = 0f;
+    private float rotX = 0f;
+    private Camera mainCamera;
+    private Rigidbody rigidbodyComponent;
     private State state;
-    private Vector3 hookshotPosition;
-
-    private enum State { Normal,  HookshotFlyingPlayer}
 
     // Start is called before the first frame update
     void Start()
     {
-        characterController = gameObject.GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked;
+        mainCamera = GetComponentInChildren<Camera>();
+        rigidbodyComponent = GetComponent<Rigidbody>();
+
         state = State.Normal;
+
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -36,14 +33,11 @@ public class PlayerController : MonoBehaviour
     {
         switch (state)
         {
-            default: 
+            default:
             case State.Normal:
-                CameraMovement();
-                ApplyGravity();
+                CameraLook();
                 break;
-            case State.HookshotFlyingPlayer:
-                HandleHookshotMovement();
-                CameraMovement();
+            case State.Escaped:
                 break;
         }
     }
@@ -52,58 +46,42 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("Hook");
-            HandleHookshotStart();
+            if (Cursor.visible || Cursor.lockState != CursorLockMode.Confined)
+            {
+                state = State.Normal;
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = false;
+            }
+            else
+            {
+                Debug.Log("Hook");
+            }
         }
     }
     public void OnMouseX(InputAction.CallbackContext context)
     {
-        mouseX = context.ReadValue<float>() * sensitivityX;
+        rotX += context.ReadValue<float>() * sensitivity * Time.deltaTime;
     }
 
     public void OnMouseY(InputAction.CallbackContext context)
     {
-        mouseY = context.ReadValue<float>() * sensitivityY;
+        rotY += context.ReadValue<float>() * sensitivity * Time.deltaTime;
+        rotY = Mathf.Clamp(rotY, -yClamp, yClamp);
     }
 
-    public void CameraMovement()
+    public void OnEscape(InputAction.CallbackContext context)
     {
-        transform.Rotate(Vector3.up, mouseX * Time.deltaTime);
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -xClamp, xClamp);
-        Vector3 targetRotation = transform.eulerAngles;
-        targetRotation.x = xRotation;
-        playerCamera.eulerAngles = targetRotation;
-    }
-
-    private void ApplyGravity()
-    {
-        characterController.Move(Vector3.up * -gravityScale);
-    }
-
-    private void HandleHookshotStart()
-    {
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit raycastHit))
+        if (context.performed)
         {
-            // Hit something
-            debugHitPointTransform.position = raycastHit.point;
-            state = State.HookshotFlyingPlayer;
-            hookshotPosition = raycastHit.point;
+            state = State.Escaped;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
-    private void HandleHookshotMovement()
+    public void CameraLook()
     {
-        Vector3 hookshotDir = (hookshotPosition - transform.position).normalized;
-
-        characterController.Move(hookshotDir * hookshotSpeed * Time.deltaTime);
-
-        if (Vector3.Distance(transform.position, hookshotPosition) < reachedHookshotPositionDistance)
-        {
-            // Reached Hookshot Position
-            state = State.Normal;
-        }
+        transform.localEulerAngles = new Vector3(0, rotX, 0);
+        mainCamera.transform.localEulerAngles = new Vector3(-rotY, 0, 0);
     }
-
-
 }
