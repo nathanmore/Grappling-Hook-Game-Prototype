@@ -7,13 +7,18 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float sensitivity = 50f;
     [SerializeField] private float yClamp = 60f;
+    [SerializeField] float maxGrappleDistance = 100f;
+    [SerializeField] float grappleSpeed = 50f;
+    [SerializeField] float reachedGrapplePositionDistance = 3f;
 
-    private enum State { Normal, Escaped }
+    private enum State { Normal, Escaped, Grappling }
 
     private float rotY = 0f;
     private float rotX = 0f;
     private Camera mainCamera;
     private Rigidbody rigidbodyComponent;
+    private GrapplingGun grapplingGun;
+    private Vector3 grapplePoint;
     private State state;
 
     // Start is called before the first frame update
@@ -21,6 +26,7 @@ public class PlayerController : MonoBehaviour
     {
         mainCamera = GetComponentInChildren<Camera>();
         rigidbodyComponent = GetComponent<Rigidbody>();
+        grapplingGun = GetComponentInChildren<GrapplingGun>();
 
         state = State.Normal;
 
@@ -39,6 +45,26 @@ public class PlayerController : MonoBehaviour
                 break;
             case State.Escaped:
                 break;
+            case State.Grappling:
+                CameraLook();
+                HandleGrappleMovement();
+                break;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        switch (state)
+        {
+            default:
+            case State.Normal:
+                grapplingGun.RemoveRope();
+                break;
+            case State.Escaped:
+                break;
+            case State.Grappling:
+                grapplingGun.DrawRope(grapplePoint);
+                break;
         }
     }
 
@@ -54,8 +80,12 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Debug.Log("Hook");
+                StartGrapple();
             }
+        }
+        if (context.canceled)
+        {
+            StopGrapple();
         }
     }
     public void OnMouseX(InputAction.CallbackContext context)
@@ -83,5 +113,31 @@ public class PlayerController : MonoBehaviour
     {
         transform.localEulerAngles = new Vector3(0, rotX, 0);
         mainCamera.transform.localEulerAngles = new Vector3(-rotY, 0, 0);
+    }
+
+    private void StartGrapple()
+    {
+        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out RaycastHit hit, maxGrappleDistance))
+        {
+            state = State.Grappling;
+            grapplePoint = hit.point;
+        }
+    }
+
+    private void HandleGrappleMovement()
+    {
+        Vector3 grappleDir = (grapplePoint - transform.position).normalized;
+
+        rigidbodyComponent.velocity = grappleDir * grappleSpeed * Time.deltaTime * 100f;
+
+        if (Vector3.Distance(transform.position, grapplePoint) < reachedGrapplePositionDistance)
+        {
+            state = State.Normal;
+        }
+    }
+
+    private void StopGrapple()
+    {
+        state = State.Normal;
     }
 }
