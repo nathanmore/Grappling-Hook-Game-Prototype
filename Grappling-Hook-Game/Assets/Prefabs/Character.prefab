@@ -133,7 +133,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -159,7 +159,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 0.06
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -204,8 +204,8 @@ LineRenderer:
       m_Mode: 1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 10
+    numCapVertices: 10
     alignment: 0
     textureMode: 0
     shadowBias: 0.5
@@ -224,14 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32e0a12e30d8ee5499e3132faa776a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whatIsGrappleable:
-    serializedVersion: 2
-    m_Bits: 1
   gunTip: {fileID: 52163323}
-  cameraTransform: {fileID: 8364599341576240739}
-  playerTransform: {fileID: 8364599343194982549}
-  maxDistance: 100
-  grappleSpeed: 10
 --- !u!1 &8364599341576240742
 GameObject:
   m_ObjectHideFlags: 0

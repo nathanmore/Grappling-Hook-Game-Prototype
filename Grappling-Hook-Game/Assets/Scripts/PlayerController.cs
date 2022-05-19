@@ -128,7 +128,10 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 grappleDir = (grapplePoint - transform.position).normalized;
 
-        rigidbodyComponent.velocity = grappleDir * grappleSpeed * Time.deltaTime * 100f;
+        float speedAdjustment = Vector3.Distance(transform.position, grapplePoint);
+        Mathf.Clamp(speedAdjustment, 10, 100);
+
+        rigidbodyComponent.velocity = grappleDir * grappleSpeed * speedAdjustment * Time.deltaTime * 10f;
 
         if (Vector3.Distance(transform.position, grapplePoint) < reachedGrapplePositionDistance)
         {
