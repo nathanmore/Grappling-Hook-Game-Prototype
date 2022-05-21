@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float maxGrappleDistance = 100f;
     [SerializeField] float grappleSpeed = 50f;
     [SerializeField] float reachedGrapplePositionDistance = 3f;
+    [SerializeField] LayerMask whatIsGrappleable;
 
     private enum State { Normal, Escaped, Grappling }
 
@@ -117,7 +118,7 @@ public class PlayerController : MonoBehaviour
 
     private void StartGrapple()
     {
-        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out RaycastHit hit, maxGrappleDistance))
+        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out RaycastHit hit, maxGrappleDistance, whatIsGrappleable))
         {
             state = State.Grappling;
             grapplePoint = hit.point;
