@@ -74,7 +74,10 @@ public class GameStateManager : MonoBehaviour
     public void OnFail() // Called when player falls to death.
     {
         state = State.fail;
-        ResetLevel();
+        Time.timeScale = 0;
+        SceneManager.LoadScene("PauseMenu", LoadSceneMode.Additive);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void ResetLevel() // Reset scene

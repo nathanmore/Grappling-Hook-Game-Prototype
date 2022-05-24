@@ -8,6 +8,7 @@ public class DeathPlane : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
+            other.GetComponent<PlayerController>().enabled = false;
             GameStateManager.Instance.OnFail();
         }
     }
