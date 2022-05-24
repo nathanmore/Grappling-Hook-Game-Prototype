@@ -5,7 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
 {
-    private static GameStateManager _instance;
+    public enum State { play, fail, pause, menu } // Enum to hold states of game
+
+
+    private static GameStateManager _instance; // Holds the singleton instance of script
+
+    private State state; // Holds current state
 
     public static GameStateManager Instance
     {
@@ -18,36 +23,30 @@ public class GameStateManager : MonoBehaviour
 
             return _instance;
         }
-    }
+    } // Manages current instance of singleton
 
     public void Awake()
     {
-        if (_instance == null)
+        if (_instance == null) // Sets new instance of script
         {
             _instance = this;
             DontDestroyOnLoad(_instance);
         }
-        else
+        else // Destroys new instances of script if one already exists
         {
             Destroy(this);
         }
 
+        state = State.menu;
     }
 
-
-    // Start is called before the first frame update
-    void Start()
+    public void OnFail()
     {
-        
+        state = State.fail;
+        ResetLevel();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void ResetGame()
+    public void ResetLevel() // Reset scene
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

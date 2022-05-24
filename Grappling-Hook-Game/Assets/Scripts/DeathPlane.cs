@@ -8,7 +8,7 @@ public class DeathPlane : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            GameStateManager.Instance.ResetGame();
+            GameStateManager.Instance.OnFail();
         }
     }
 }
