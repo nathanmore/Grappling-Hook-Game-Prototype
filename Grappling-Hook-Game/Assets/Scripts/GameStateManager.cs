@@ -36,11 +36,21 @@ public class GameStateManager : MonoBehaviour
         {
             Destroy(this);
         }
+    }
 
+    public void Start()
+    {
         state = State.menu;
     }
 
-    public void OnFail()
+    public void StartGame()
+    {
+        SceneManager.LoadScene("main");
+        LightProbes.TetrahedralizeAsync();
+        state = State.play;
+    }
+
+    public void OnFail() // Called when player falls to death.
     {
         state = State.fail;
         ResetLevel();
