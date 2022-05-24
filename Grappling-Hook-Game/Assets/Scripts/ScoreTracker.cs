@@ -9,7 +9,10 @@ public class ScoreTracker : MonoBehaviour
 
     void Update()
     {
-        currentScore.Value = CalculateDistance();
+        if (GameStateManager.Instance.state == GameStateManager.State.play)
+        {
+            currentScore.Value = CalculateDistance();
+        }
     }
 
     public float CalculateDistance()

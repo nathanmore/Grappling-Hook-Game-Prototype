@@ -7,10 +7,13 @@ public class GameStateManager : MonoBehaviour
 {
     public enum State { play, fail, pause, menu } // Enum to hold states of game
 
+    [SerializeField] private ScoreScriptableObject currentScore;
+    [SerializeField] private ScoreScriptableObject highScore;
+
 
     private static GameStateManager _instance; // Holds the singleton instance of script
 
-    private State state; // Holds current state
+    public State state; // Holds current state
 
     public static GameStateManager Instance
     {
@@ -73,8 +76,9 @@ public class GameStateManager : MonoBehaviour
 
     public void OnFail() // Called when player falls to death.
     {
-        state = State.fail;
         Time.timeScale = 0;
+        state = State.fail;
+        UpdateHighScore();
         SceneManager.LoadScene("PauseMenu", LoadSceneMode.Additive);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -85,5 +89,13 @@ public class GameStateManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         state = State.play;
         Time.timeScale = 1;
+    }
+
+    public void UpdateHighScore()
+    {
+        if (currentScore.Value > highScore.Value)
+        {
+            highScore.Value = currentScore.Value;
+        }
     }
 }

@@ -24,4 +24,10 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void ResetScore()
+    {
+        highScore.Value = 0f;
+        highScoreNumText.text = highScore.Value.ToString();
+    }
 }
