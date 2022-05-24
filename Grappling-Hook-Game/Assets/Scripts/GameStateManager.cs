@@ -46,8 +46,29 @@ public class GameStateManager : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("main");
-        LightProbes.TetrahedralizeAsync();
         state = State.play;
+    }
+
+    public void PauseGame()
+    {
+        if (state == State.pause)
+        {
+            SceneManager.UnloadSceneAsync("PauseMenu");
+            state = State.play;
+            Time.timeScale = 1;
+
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = false;
+        }
+        else if (state == State.play)
+        {
+            Time.timeScale = 0;
+            state = State.pause;
+            SceneManager.LoadScene("PauseMenu", LoadSceneMode.Additive);
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 
     public void OnFail() // Called when player falls to death.
@@ -59,5 +80,7 @@ public class GameStateManager : MonoBehaviour
     public void ResetLevel() // Reset scene
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        state = State.play;
+        Time.timeScale = 1;
     }
 }

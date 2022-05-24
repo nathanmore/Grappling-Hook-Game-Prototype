@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float reachedGrapplePositionDistance = 3f;
     [SerializeField] LayerMask whatIsGrappleable;
 
-    private enum State { Normal, Escaped, Grappling }
+    private enum State { Normal, Paused, Grappling }
 
     private float rotY = 0f;
     private float rotX = 0f;
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
             case State.Normal:
                 CameraLook();
                 break;
-            case State.Escaped:
+            case State.Paused:
                 break;
             case State.Grappling:
                 CameraLook();
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
             case State.Normal:
                 grapplingGun.RemoveRope();
                 break;
-            case State.Escaped:
+            case State.Paused:
                 break;
             case State.Grappling:
                 grapplingGun.DrawRope(grapplePoint);
@@ -73,9 +73,8 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            if (Cursor.visible || Cursor.lockState != CursorLockMode.Confined)
+            if (Cursor.visible || Cursor.lockState != CursorLockMode.Confined && state != State.Paused)
             {
-                state = State.Normal;
                 Cursor.lockState = CursorLockMode.Confined;
                 Cursor.visible = false;
             }
@@ -104,9 +103,16 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            state = State.Escaped;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            if (state != State.Paused)
+            {
+                state = State.Paused;
+            }
+            else
+            {
+                state = State.Normal;
+            }
+            
+            GameStateManager.Instance.PauseGame();
         }
     }
 
