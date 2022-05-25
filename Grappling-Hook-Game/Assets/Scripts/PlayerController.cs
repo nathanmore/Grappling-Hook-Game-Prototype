@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
         state = State.Normal;
 
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
