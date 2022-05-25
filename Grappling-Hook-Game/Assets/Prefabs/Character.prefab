@@ -324,6 +324,7 @@ GameObject:
   - component: {fileID: 6293841372390282253}
   - component: {fileID: 8364599343194982546}
   - component: {fileID: 8364599343194982548}
+  - component: {fileID: 990056335}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -531,11 +532,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb532ffbf84e0514c90ddc62264261a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 50
+  sensitivity: 100
   yClamp: 60
   maxGrappleDistance: 100
-  grappleSpeed: 50
+  grappleSpeed: 10
   reachedGrapplePositionDistance: 3
   whatIsGrappleable:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &990056335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8364599343194982505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eef16f642338495a9253949fc2cdb2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallSets:
+  - {fileID: 2139968529967616191, guid: f700cbdf1fcfc455d9f1eb7ba009d8f6, type: 3}
+  wallDist: 32
