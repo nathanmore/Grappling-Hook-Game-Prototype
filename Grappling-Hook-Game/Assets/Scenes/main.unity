@@ -1748,6 +1748,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
+    - target: {fileID: 8364599343194982548, guid: 9a58348760d6fda438335d77abc5caa5, type: 3}
+      propertyPath: grappleSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8364599343194982548, guid: 9a58348760d6fda438335d77abc5caa5, type: 3}
+      propertyPath: maxGrappleDistance
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 8364599343194982549, guid: 9a58348760d6fda438335d77abc5caa5, type: 3}
       propertyPath: m_RootOrder
       value: 0
