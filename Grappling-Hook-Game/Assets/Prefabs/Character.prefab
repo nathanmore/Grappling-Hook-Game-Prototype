@@ -554,4 +554,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallSets:
   - {fileID: 2139968529967616191, guid: f700cbdf1fcfc455d9f1eb7ba009d8f6, type: 3}
-  wallDist: 32
+  - {fileID: 6390952026481134603, guid: 9549ecef2371443378aa52702cbb0007, type: 3}
+  - {fileID: 6456321450678405667, guid: e5e82e61704f24db0a54b94e64b2de58, type: 3}
+  wallDist: 96

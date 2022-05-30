@@ -9,11 +9,14 @@ public class WallDeletion : MonoBehaviour
     private float wallPos;
     private float playerDist;
 
+    [SerializeField] private float destroyDistance = 100f;
+
+    //private Random random;
+
     private void OnEnable()
     {
         pLocation = GameObject.FindObjectOfType<PlayerLocation>();
         wallPos = CalculateWallPosition();
-        Debug.Log(CalculatePlayerDist());
     }
 
     // Update is called once per frame
@@ -21,7 +24,7 @@ public class WallDeletion : MonoBehaviour
     {
         playerDist = CalculatePlayerDist();
 
-        if (playerDist > 100)
+        if (playerDist > destroyDistance)
         {
             Destroy(gameObject);
         }
