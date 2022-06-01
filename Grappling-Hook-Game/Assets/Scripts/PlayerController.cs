@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float grappleSpeed = 50f;
     [SerializeField] float reachedGrapplePositionDistance = 3f;
     [SerializeField] LayerMask whatIsGrappleable;
+    [SerializeField] float airResistance = 1f;
 
     private enum State { Normal, Paused, Grappling }
 
@@ -43,6 +44,7 @@ public class PlayerController : MonoBehaviour
             default:
             case State.Normal:
                 CameraLook();
+                VelocityDampening();
                 break;
             case State.Paused:
                 break;
@@ -136,7 +138,12 @@ public class PlayerController : MonoBehaviour
         Vector3 grappleDir = (grapplePoint - transform.position).normalized;
 
         float speedAdjustment = Vector3.Distance(transform.position, grapplePoint);
-        Mathf.Clamp(speedAdjustment, 10, 100);
+        Mathf.Clamp(speedAdjustment, 15, 100);
+
+        if (speedAdjustment < 35)
+        {
+            speedAdjustment *= 2f;
+        }
 
         rigidbodyComponent.velocity = grappleDir * grappleSpeed * speedAdjustment * Time.deltaTime * 10f;
 
@@ -149,5 +156,26 @@ public class PlayerController : MonoBehaviour
     private void StopGrapple()
     {
         state = State.Normal;
+    }
+
+    private void VelocityDampening()
+    {
+        if (rigidbodyComponent.velocity.x > 0)
+        {
+            rigidbodyComponent.velocity -= new Vector3(airResistance * Time.deltaTime, 0, 0);
+        }
+        else if (rigidbodyComponent.velocity.x < 0)
+        {
+            rigidbodyComponent.velocity += new Vector3(airResistance * Time.deltaTime, 0, 0);
+        }
+
+        if (rigidbodyComponent.velocity.z > 0)
+        {
+            rigidbodyComponent.velocity -= new Vector3(0, 0, airResistance * Time.deltaTime);
+        }
+        else if (rigidbodyComponent.velocity.z < 0)
+        {
+            rigidbodyComponent.velocity += new Vector3(0, 0, airResistance * Time.deltaTime);
+        }
     }
 }

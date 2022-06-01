@@ -1676,6 +1676,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathPlane
       objectReference: {fileID: 0}
+    - target: {fileID: 7110047116089062468, guid: 1febd66e76eff2746a1e839b9ea003ac, type: 3}
+      propertyPath: playerTransform
+      value: 
+      objectReference: {fileID: 517581037}
     - target: {fileID: 7110047116089062469, guid: 1febd66e76eff2746a1e839b9ea003ac, type: 3}
       propertyPath: m_RootOrder
       value: 8
