@@ -1618,10 +1618,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 624893586}
   m_HandleRect: {fileID: 1121107834}
   m_Direction: 0
-  m_MinValue: 10
-  m_MaxValue: 100
+  m_MinValue: 1
+  m_MaxValue: 80
   m_WholeNumbers: 1
-  m_Value: 10
+  m_Value: 40
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

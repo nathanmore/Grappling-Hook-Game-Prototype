@@ -24,7 +24,7 @@ public class MainMenu : MonoBehaviour
         }
         else // else use default value
         {
-            sensitivitySlider.value = 50f;
+            sensitivitySlider.value = 40f;
         }
         sensitivityNumText.text = sensitivitySlider.value.ToString(); // Set num text
     }

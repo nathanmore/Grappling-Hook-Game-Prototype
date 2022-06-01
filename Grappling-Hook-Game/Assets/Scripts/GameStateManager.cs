@@ -68,7 +68,7 @@ public class GameStateManager : MonoBehaviour
             Time.timeScale = 0;
             state = State.pause;
             SceneManager.LoadScene("PauseMenu", LoadSceneMode.Additive);
-
+            UpdateHighScore();
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
@@ -89,6 +89,12 @@ public class GameStateManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         state = State.play;
         Time.timeScale = 1;
+    }
+
+    public void OpenMainMenu()
+    {
+        state = State.menu;
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void UpdateHighScore()

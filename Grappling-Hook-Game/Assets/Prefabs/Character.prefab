@@ -540,7 +540,7 @@ MonoBehaviour:
   whatIsGrappleable:
     serializedVersion: 2
     m_Bits: 8
-  airResistance: 1
+  airResistance: 4
 --- !u!114 &990056335
 MonoBehaviour:
   m_ObjectHideFlags: 0

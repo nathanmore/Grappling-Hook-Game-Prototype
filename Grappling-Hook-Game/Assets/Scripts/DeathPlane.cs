@@ -13,7 +13,7 @@ public class DeathPlane : MonoBehaviour
         {
             if ((playerTransform.position.z - gameObject.transform.position.z) > playerPosBuffer)
             {
-                gameObject.transform.position = new Vector3(0, -10, playerTransform.position.z);
+                gameObject.transform.position = new Vector3(0, gameObject.transform.position.y, playerTransform.position.z);
             }
         }
     }

@@ -22,6 +22,11 @@ public class PauseMenu : MonoBehaviour
         GameStateManager.Instance.ResetLevel();
     }
 
+    public void MainMenu()
+    {
+        GameStateManager.Instance.OpenMainMenu();
+    }
+
     public void QuitGame()
     {
         Application.Quit();
