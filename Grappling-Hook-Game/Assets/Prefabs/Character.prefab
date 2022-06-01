@@ -535,7 +535,7 @@ MonoBehaviour:
   sensitivity: 100
   yClamp: 60
   maxGrappleDistance: 60
-  grappleSpeed: 30
+  grappleSpeed: 20
   reachedGrapplePositionDistance: 3
   whatIsGrappleable:
     serializedVersion: 2

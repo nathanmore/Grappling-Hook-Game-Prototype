@@ -21,6 +21,6 @@ public class UIScoreDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scoreText.text = currentScore.Value.ToString();
+        scoreText.text = "Current Score: " + currentScore.Value.ToString();
     }
 }

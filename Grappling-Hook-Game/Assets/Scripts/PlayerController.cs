@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
 
         if (speedAdjustment < 35)
         {
-            speedAdjustment *= 2f;
+            speedAdjustment *= 1.5f;
         }
 
         rigidbodyComponent.velocity = grappleDir * grappleSpeed * speedAdjustment * Time.deltaTime * 10f;
