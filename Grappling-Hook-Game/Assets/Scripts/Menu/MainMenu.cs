@@ -11,7 +11,8 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        highScoreNumText.text = highScore.Value.ToString();
+        highScore.Value = PlayerPrefs.GetFloat("HighScore"); // Get saved high score
+        highScoreNumText.text = highScore.Value.ToString(); // Display high score
     }
 
     
@@ -28,6 +29,7 @@ public class MainMenu : MonoBehaviour
     public void ResetScore()
     {
         highScore.Value = 0f;
+        PlayerPrefs.SetFloat("HighScore", 0f);
         highScoreNumText.text = highScore.Value.ToString();
     }
 }

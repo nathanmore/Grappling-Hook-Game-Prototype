@@ -75,15 +75,15 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            if (Cursor.visible || Cursor.lockState != CursorLockMode.Confined && state != State.Paused)
-            {
-                Cursor.lockState = CursorLockMode.Confined;
-                Cursor.visible = false;
-            }
-            else
-            {
+            //if (Cursor.visible || Cursor.lockState != CursorLockMode.Confined && state != State.Paused)
+            //{
+            //    Cursor.lockState = CursorLockMode.Confined;
+            //    Cursor.visible = false;
+            //}
+            //else
+            //{
                 StartGrapple();
-            }
+            //}
         }
         if (context.canceled)
         {

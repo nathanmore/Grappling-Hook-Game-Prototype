@@ -79,9 +79,9 @@ public class GameStateManager : MonoBehaviour
         Time.timeScale = 0;
         state = State.fail;
         UpdateHighScore();
-        SceneManager.LoadScene("PauseMenu", LoadSceneMode.Additive);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        SceneManager.LoadScene("PauseMenu", LoadSceneMode.Additive);
     }
 
     public void ResetLevel() // Reset scene
@@ -97,5 +97,6 @@ public class GameStateManager : MonoBehaviour
         {
             highScore.Value = currentScore.Value;
         }
+        PlayerPrefs.SetFloat("HighScore", highScore.Value);
     }
 }
