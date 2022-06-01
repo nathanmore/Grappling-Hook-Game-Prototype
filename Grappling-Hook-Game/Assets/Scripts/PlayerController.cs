@@ -34,6 +34,11 @@ public class PlayerController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (PlayerPrefs.HasKey("sensitivity") == true)
+        {
+            sensitivity = PlayerPrefs.GetFloat("sensitivity");
+        }
     }
 
     // Update is called once per frame
