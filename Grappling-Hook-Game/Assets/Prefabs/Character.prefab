@@ -532,9 +532,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb532ffbf84e0514c90ddc62264261a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 100
+  sensitivity: 50
   yClamp: 60
-  maxGrappleDistance: 60
+  maxGrappleDistance: 80
   grappleSpeed: 20
   reachedGrapplePositionDistance: 3
   whatIsGrappleable:
